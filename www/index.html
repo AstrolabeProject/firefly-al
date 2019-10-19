@@ -2,123 +2,123 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="icon" type="image/x-icon" href="images/fftools-logo-16x16.png">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="apple-touch-icon" href="images/fftools-logo-57x57_ipad.png"/>
-    <link rel=”apple-touch-startup-image” href=”images/fftools-ipad_splash_768x1004.png”>
-    <title>JWST Firefly</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="icon" type="image/x-icon" href="images/fftools-logo-16x16.png">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="images/fftools-logo-57x57_ipad.png"/>
+  <link rel=”apple-touch-startup-image” href=”images/fftools-ipad_splash_768x1004.png”>
+  <title>JWST Firefly</title>
 
-    <script>
-        window.firefly = {
-            app: {
-                template: 'FireflyViewer',          // set to app mode, instead of api.
-                menu: [
-                    {label:'Images', action:'ImageSelectDropDownCmd'},
-                    {label:'Catalogs', action:'IrsaCatalogDropDown'},
-                    {label:'Charts', action:'ChartSelectDropDownCmd'},
-                    {label:'Upload', action: 'FileUploadDropDownCmd'},
-                    {label:'Workspace', action: 'WorkspaceDropDownCmd'},
-                    {label:'Test Searches', action:'TestSearches'},
-                    {label:'TAP Searches', action: 'TAPSearch'},
-                    {label:'Example Js Dialog', action:'exampleDialog', type:'COMMAND'},
-                ],
-            },
-            options : {
-                MenuItemKeys: {maskOverlay:true},
-                catalogSpacialOp: 'polygonWhenPlotExist',
-                workspace : {showOptions: true},
-                imageMasterSourcesOrder: ['WISE', '2MASS', 'Spitzer'],
-                // wcsMatchType: 'Standard',  // 'Standard', 'Target', 'Pixel', 'PixelCenter'
-                wcsMatchType: false,  // 'Standard', 'Target', 'Pixel', 'PixelCenter'
-                imageScrollsToHighlightedTableRow: false, // boolean value
-                // a way to add more image sources into UI list, backend must still know how to search it
-                imageMasterAdditionalSources:  getMoreImagePanelDataTest(),
-//                imageMasterAdditionalSources:  dontGetNothin(),
-                charts: {
-                    singleTraceUI: false
-                },
-                hips : {
-                    useForCoverage: true,
-                    useForImageSearch: true,
-                    hipsSources: 'irsa,cds',
-                    defHipsSources: {source: 'irsa', label: 'IRSA Featured'},
-                    mergedListPriority: 'Irsa'
-                },
- // example of using DSS and wise combination for coverage (not that anyone would want to combination)
-                coverage : {
-                    hipsSourceURL : 'http://alasky.u-strasbg.fr/DSS/DSSColor', // url
-                    imageSourceParams: {
-                        Service : 'WISE',
-                        SurveyKey: '1b',
-                        SurveyKeyBand: '4'
-                    }
-                }
-            }
-        };
-
-        function dontGetNothin() {
-          return [];
+  <script>
+    window.firefly = {
+      app: {
+        template: 'FireflyViewer',          // set to app mode, instead of api.
+          menu: [
+            {label:'Images', action:'ImageSelectDropDownCmd'},
+            {label:'Catalogs', action:'IrsaCatalogDropDown'},
+            {label:'Charts', action:'ChartSelectDropDownCmd'},
+            {label:'Upload', action: 'FileUploadDropDownCmd'},
+            {label:'Workspace', action: 'WorkspaceDropDownCmd'},
+            {label:'Test Searches', action:'TestSearches'},
+            {label:'TAP Searches', action: 'TAPSearch'},
+            {label:'Example Js Dialog', action:'exampleDialog', type:'COMMAND'},
+          ],
+      },
+      options : {
+        MenuItemKeys: {maskOverlay:true},
+        catalogSpacialOp: 'polygonWhenPlotExist',
+        workspace : {showOptions: true},
+        imageMasterSourcesOrder: ['WISE', '2MASS', 'Spitzer'],
+        // wcsMatchType: 'Standard',  // 'Standard', 'Target', 'Pixel', 'PixelCenter'
+        wcsMatchType: false,  // 'Standard', 'Target', 'Pixel', 'PixelCenter'
+        imageScrollsToHighlightedTableRow: false, // boolean value
+        // a way to add more image sources into UI list, backend must still know how to search it
+        imageMasterAdditionalSources:  getMoreImagePanelDataTest(),
+        charts: {
+          singleTraceUI: false
+        },
+        hips : {
+          useForCoverage: true,
+          useForImageSearch: true,
+          hipsSources: 'irsa,cds',
+          defHipsSources: {source: 'irsa', label: 'IRSA Featured'},
+          mergedListPriority: 'Irsa'
+        },
+        // example of using DSS and wise combination for coverage
+        coverage : {
+          hipsSourceURL : 'http://alasky.u-strasbg.fr/DSS/DSSColor', // url
+          imageSourceParams: {
+            Service : 'WISE',
+            SurveyKey: '1b',
+            SurveyKeyBand: '4'
+          }
         }
+      }
+    };
 
-        function getMoreImagePanelDataTest() {
-            return [
-                {
-                    acronym: "F090W",
-                    dataType: "image",
-                    helpUrl: "http://astrolabe/arizona.edu",
-                    imageId: "image-demo1",
-                    maxRangeDeg: "1",
-                    minRangeDeg: "0.000278",
-                    missionId: "JWST",
-                    plotRequestParams: {
-                      // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
-                      URL: 'http://vos:8080/dals/siav2-jwst?request=accessData&version=2.0&POS=${ra},${dec}&SIZE=${sizeArcSec}&VERB=3&Collection=JWST&FORMAT=all&RESPONSEFORMAT=VOTable',
-                      title: "JWST F090W",
-                      type: "URL"
-                    },
-                    project: "JWST Images",
-                    projectTypeDesc: "all-sky",
-                    projectTypeKey: "all-sky",
-                    subProject: null,
-                    title: "F090W",
-                    tooltip: "JWST Images",
-                    waveType: "optical",
-                    wavebandId: "F090W",
-                    wavelength: "90",
-                    wavelengthDesc: "90 microns",
-                },
-                {
-                    project: "JWST Tables",
-                    title: "JWST Catalog",
-                    acronym: "JWSTable ",
-                    dataType: "table",
-                    helpUrl: "http://astrolabe/arizona.edu",
-                    imageId: "image-demo2",
-                    maxRangeDeg: "1",
-                    minRangeDeg: "0.000278",
-                    missionId: "JWST Tables",
-                    tableRequestParams: {
-                      // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
-                      URL:'http://vos:8080/dals/tap-jwst/sync?request=doQuery&QUERY=SELECT%20*%20FROM%20sia.jcat%20WHERE%20CONTAINS(POINT(\'ICRS\',%20s_ra,s_dec),CIRCLE(\'ICRS\',%20${ra},${dec},${sizeArcSec}))=1&LANG=ADQL&MAXREC=50000'
-                    },
-                    projectTypeDesc: "all-sky",
-                    projectTypeKey: "all-sky",
-                    subProject: null,
-                    tooltip: "JWST catalog",
-                    waveType: "optical",
-                    wavebandId: "something",
-                    wavelength: "90",
-                    wavelengthDesc: "90 microns",
-                }
-            ];
+    function dontGetNothin() {
+      return [];
+    }
+
+    function getMoreImagePanelDataTest() {
+      return [
+        {
+          acronym: "F090W",
+          dataType: "image",
+          helpUrl: "http://astrolabe/arizona.edu",
+          imageId: "image-demo1",
+          maxRangeDeg: "1",
+          minRangeDeg: "0.000278",
+          missionId: "JWST",
+          plotRequestParams: {
+            // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
+            URL: 'http://vos:8080/dals/siav2-jwst?request=accessData&version=2.0&POS=${ra},${dec}&SIZE=${sizeArcSec}&VERB=3&Collection=JWST&FORMAT=all&RESPONSEFORMAT=VOTable',
+            title: "JWST F090W",
+            type: "URL"
+          },
+          project: "JWST Images",
+          projectTypeDesc: "all-sky",
+          projectTypeKey: "all-sky",
+          subProject: null,
+          title: "F090W",
+          tooltip: "JWST Images",
+          waveType: "optical",
+          wavebandId: "F090W",
+          wavelength: "90",
+          wavelengthDesc: "90 microns",
+        },
+        {
+          project: "JWST Tables",
+          title: "JWST Catalog",
+          acronym: "JWSTable ",
+          dataType: "table",
+          helpUrl: "http://astrolabe/arizona.edu",
+          imageId: "image-demo2",
+          maxRangeDeg: "1",
+          minRangeDeg: "0.000278",
+          missionId: "JWST Tables",
+          tableRequestParams: {
+          // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
+          URL:'http://vos:8080/dals/tap-jwst/sync?request=doQuery&QUERY=SELECT%20*%20FROM%20sia.jcat%20WHERE%20CONTAINS(POINT(\'ICRS\',%20s_ra,s_dec),CIRCLE(\'ICRS\',%20${ra},${dec},${sizeArcSec}))=1&LANG=ADQL&MAXREC=50000'
+          },
+          projectTypeDesc: "all-sky",
+          projectTypeKey: "all-sky",
+          subProject: null,
+          tooltip: "JWST catalog",
+          waveType: "optical",
+          wavebandId: "something",
+          wavelength: "90",
+          wavelengthDesc: "90 microns",
         }
-    </script>
-    <script  type="text/javascript" src="/firefly/firefly_loader.js"></script>
+      ];
+    }
+  </script>
+  <script  type="text/javascript" src="/firefly/firefly_loader.js"></script>
 </head>
 
 <body style="margin: 0px;">
-<!-- attached location for firefly app -->
+
+<!-- attachment location for firefly app -->
 <div id='app'/>
 
 </body>
