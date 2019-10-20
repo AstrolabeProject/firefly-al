@@ -65,14 +65,14 @@
         {
           acronym: "F090W",
           dataType: "image",
-          helpUrl: "http://astrolabe/arizona.edu",
+          helpUrl: "http://web:8000/help",
           imageId: "image-demo1",
           maxRangeDeg: "1",
           minRangeDeg: "0.000278",
           missionId: "JWST",
           plotRequestParams: {
-            // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
-            URL: 'http://vos:8080/dals/siav2-jwst?request=accessData&version=2.0&POS=${ra},${dec}&SIZE=${sizeArcSec}&VERB=3&Collection=JWST&FORMAT=all&RESPONSEFORMAT=VOTable',
+            // available mappings- ra, dec, size, sizeDeg, sizeArcMin, sizeArcSec
+            URL: "http://web:8000/img/query?RA=${ra}&DEC=${dec}&SIZE=${size}&SIZEDEG=${sizeDeg}&SIZEARCMIN=${sizeArcMin}&SIZEARCSEC=${sizeArcSec}&RESPONSEFORMAT=FITS",
             title: "JWST F090W",
             type: "URL"
           },
@@ -99,7 +99,7 @@
           missionId: "JWST Tables",
           tableRequestParams: {
           // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
-          URL:'http://vos:8080/dals/tap-jwst/sync?request=doQuery&QUERY=SELECT%20*%20FROM%20sia.jcat%20WHERE%20CONTAINS(POINT(\'ICRS\',%20s_ra,s_dec),CIRCLE(\'ICRS\',%20${ra},${dec},${sizeArcSec}))=1&LANG=ADQL&MAXREC=50000'
+          URL:"http://vos:8080/dals/tap-jwst/sync?request=doQuery&QUERY=SELECT%20*%20FROM%20sia.jcat%20WHERE%20CONTAINS(POINT(\'ICRS\',%20s_ra,s_dec),CIRCLE(\'ICRS\',%20${ra},${dec},${sizeArcSec}))=1&LANG=ADQL&MAXREC=50000"
           },
           projectTypeDesc: "all-sky",
           projectTypeKey: "all-sky",
