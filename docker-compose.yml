@@ -7,7 +7,7 @@ services:
       restart_policy:
         condition: none
     environment:
-      - DEBUG
+      # - DEBUG=TRUE
       - _JAVA_OPTIONS=-Xms512m -Xmx8092m
     volumes:
       - ./www:/local/www
