@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  firefly:
+    image: ipac/firefly:withmenu
+    deploy:
+      restart_policy:
+        condition: none
+    environment:
+      - DEBUG
+      - _JAVA_OPTIONS=-Xms512m -Xmx8092m
+    volumes:
+      - ./www:/local/www
+      - ./images:/external:ro
+    ports:
+      - "8888:8080"
+
+
+networks:
+  default:
+    external: true
+    name: cuts_net
