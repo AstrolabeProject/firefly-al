@@ -65,14 +65,14 @@
         {
           acronym: "F090W",
           dataType: "image",
-          helpUrl: "http://web:8000/help",
-          imageId: "image-demo1",
-          maxRangeDeg: "1",
-          minRangeDeg: "0.000278",
+          helpUrl: "http://vos_cuts:8000/help",
+          imageId: "JWST F090W",
+          maxRangeDeg: "10",
+          minRangeDeg: "0.0000028", <!-- .01 arcsecond -->
           missionId: "JWST",
           plotRequestParams: {
             // available mappings- ra, dec, size, sizeDeg, sizeArcMin, sizeArcSec
-            URL: "http://cuts_cuts:8000/img/co/ac?filter=F090W&ra=${ra}&dec=${dec}&size=${size}&sizeDeg=${sizeDeg}&sizeArcMin=${sizeArcMin}&sizeArcSec=${sizeArcSec}&responseFormat=FITS",
+            URL: "http://vos_cuts:8000/img/co/ac?ra=${ra}&dec=${dec}&size=${size}&sizeDeg=${sizeDeg}&sizeArcMin=${sizeArcMin}&sizeArcSec=${sizeArcSec}&filter=F090W",
             title: "JWST F090W",
             type: "URL"
           },
@@ -86,6 +86,31 @@
           wavebandId: "F090W",
           wavelength: "90",
           wavelengthDesc: "90 microns",
+        },
+        {
+          acronym: "F356W",
+          dataType: "image",
+          helpUrl: "http://vos_cuts:8000/help",
+          imageId: "JWST F356W",
+          maxRangeDeg: "10",
+          minRangeDeg: "0.0000028", <!-- .01 arcsecond -->
+          missionId: "JWST",
+          plotRequestParams: {
+            // available mappings- ra, dec, size, sizeDeg, sizeArcMin, sizeArcSec
+            URL: "http://vos_cuts:8000/img/co/ac?ra=${ra}&dec=${dec}&size=${size}&sizeDeg=${sizeDeg}&sizeArcMin=${sizeArcMin}&sizeArcSec=${sizeArcSec}&filter=F356W",
+            title: "JWST F356W",
+            type: "URL"
+          },
+          project: "JWST Images",
+          projectTypeDesc: "all-sky",
+          projectTypeKey: "all-sky",
+          subProject: null,
+          title: "F356W",
+          tooltip: "JWST Images",
+          waveType: "far-IR",
+          wavebandId: "F356W",
+          wavelength: "356",
+          wavelengthDesc: "356 microns",
         },
         {
           project: "JWST Tables",
@@ -105,8 +130,8 @@
           projectTypeKey: "all-sky",
           subProject: null,
           tooltip: "JWST catalog",
-          waveType: "optical",
-          wavebandId: "something",
+          waveType: "far-IR",
+          wavebandId: "F090W",
           wavelength: "90",
           wavelengthDesc: "90 microns",
         }
