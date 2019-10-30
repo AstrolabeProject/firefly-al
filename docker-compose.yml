@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   firefly:
-    image: ipac/firefly:withmenu
+    image: ipac/firefly:rc-2019.3
     deploy:
       restart_policy:
         condition: none
