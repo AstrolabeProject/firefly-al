@@ -8,7 +8,7 @@ services:
         condition: none
     environment:
       # - DEBUG=TRUE
-      - _JAVA_OPTIONS=-Xms512m -Xmx8092m
+      - _JAVA_OPTIONS=-Xms512m -Xmx10240m
     volumes:
       - ./www:/local/www
       - ./images:/external:ro
@@ -19,4 +19,4 @@ services:
 networks:
   default:
     external: true
-    name: cuts_net
+    name: vos_net
