@@ -9,7 +9,7 @@ This is a public code repository of the [Astrolabe Project](http://astrolabe.ari
 
 ## Installation
 
-***Note**: This is a special, customized version of Firefly. Installation of this version requires a working Docker installation, version 19.03 or greater, and **Docker must be running in swarm mode** (instructions below). You must also successfully start the [Astrolabe VOS Server](https://github.com/AstrolabeProject/vos.git) **before** starting this Firefly.*
+***Note**: This is a special, customized version of Firefly. Installation of this version requires a working Docker installation, version 19.03 or greater, and **Docker must be running in swarm mode**. You must also successfully start the [Astrolabe VOS Server](https://github.com/AstrolabeProject/vos.git) **before** starting this Firefly.*
 
 ### 1. Checkout this project
 
@@ -21,7 +21,7 @@ Git `clone` this project to your local disk and enter the project directory:
 
 ### 2. Enable Docker swarm mode
 
-Since you cannot run this version of Firefly without first having started the [Astrolabe VOS Server](https://github.com/AstrolabeProject/vos.git), you will **already** have enabled Swarm mode.
+Since you cannot run this version of Firefly without first having started the [Astrolabe VOS Server](https://github.com/AstrolabeProject/vos.git), you must have already enabled Swarm mode.
 
 
 ### 3. Prepare the deployment
