@@ -15,6 +15,7 @@ help:
 	@echo '           exec - exec into the running Firefly server (CLI arg: NAME=containerID)'
 	@echo '           gen  - generate initial UI file stubs into a subdirectory'
 	@echo '           up   - start a Firefly server on the Cuts network (for development)'
+	@echo '           update - copy index.html into running Firefly server (for development)'
 
 down:
 	docker stack rm ${STACK}
@@ -28,3 +29,6 @@ gen:
 
 up:
 	docker stack deploy -c docker-compose.yml ${STACK}
+
+update:
+	docker cp ${PWD}/www/index.html ${NAME}:/local/www
