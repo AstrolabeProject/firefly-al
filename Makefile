@@ -1,20 +1,20 @@
 ENVLOC=/etc/trhenv
 FFWWW=${PWD}/www
-FFIMG=ipac/firefly:withmenu
+FFIMG=ipac/firefly:rc-2019.3
 JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx8192m'
 NAME=ff
 PORT=8888
 STACK=ff
 
-.PHONY: help down exec gen up
+.PHONY: help down exec gen up update
 
 help:
 	@echo 'Make what? help, exec, down, gen, up'
 	@echo '    where: help - show this help message'
-	@echo '           down - stop the Firefly server on the Cuts network (for development)'
+	@echo '           down - stop the Firefly server on the VOS network'
 	@echo '           exec - exec into the running Firefly server (CLI arg: NAME=containerID)'
 	@echo '           gen  - generate initial UI file stubs into a subdirectory'
-	@echo '           up   - start a Firefly server on the Cuts network (for development)'
+	@echo '           up   - start a Firefly server on the VOS network'
 	@echo '           update - copy index.html into running Firefly server (for development)'
 
 down:
