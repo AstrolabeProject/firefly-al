@@ -17,11 +17,11 @@
             {label:'Images', action:'ImageSelectDropDownCmd'},
             {label:'Catalogs', action:'IrsaCatalogDropDown'},
             {label:'Charts', action:'ChartSelectDropDownCmd'},
-            {label:'Upload', action: 'FileUploadDropDownCmd'},
-            {label:'Workspace', action: 'WorkspaceDropDownCmd'},
-            {label:'Test Searches', action:'TestSearches'},
             {label:'TAP Searches', action: 'TAPSearch'},
-            {label:'Example Js Dialog', action:'exampleDialog', type:'COMMAND'},
+            {label:'Upload', action: 'FileUploadDropDownCmd'},
+            // {label:'Workspace', action: 'WorkspaceDropDownCmd'},
+            // {label:'Test Searches', action:'TestSearches'},
+            // {label:'Example Js Dialog', action:'exampleDialog', type:'COMMAND'},
           ],
       },
       options : {
@@ -34,6 +34,12 @@
         imageScrollsToHighlightedTableRow: false, // boolean value
         // a way to add more image sources into UI list, backend must still know how to search it
         imageMasterAdditionalSources:  getMoreImagePanelDataTest(),
+        // a way to more TAP sources, backend must still know how to respond
+        tap: {
+          additional: {
+            services: getMoreCatalogs()
+          }
+        },
         charts: {
           singleTraceUI: false
         },
@@ -58,6 +64,13 @@
 
     function dontGetNothin() {
       return [];
+    }
+
+    function getMoreCatalogs() {
+      return [
+        { label: "Astrolabe/JWST http://dals:8080/dals/tap-jwst",
+          value: "http://dals:8080/dals/tap-jwst" }
+      ];
     }
 
     function getMoreImagePanelDataTest() {
