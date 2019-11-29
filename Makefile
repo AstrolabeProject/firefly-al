@@ -1,20 +1,23 @@
 ENVLOC=/etc/trhenv
 FFWWW=${PWD}/www
 FFIMG=ipac/firefly:rc-2019.3
-JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx8192m'
+IMGS=${PWD}/images
+JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m'
 NAME=ff
 PORT=8888
-STACK=ff
+STACK=loc
 
 .PHONY: help down exec gen up update
 
 help:
 	@echo 'Make what? help, exec, down, gen, up'
 	@echo '    where: help - show this help message'
-	@echo '           down - stop the Firefly server on the VOS network'
+	@echo '           down - stop the Firefly server on the private network'
 	@echo '           exec - exec into the running Firefly server (CLI arg: NAME=containerID)'
 	@echo '           gen  - generate initial UI file stubs into a subdirectory'
-	@echo '           up   - start a Firefly server on the VOS network'
+	@echo '           run  - start a standalone Firefly server on this host'
+	@echo '           stop - stop the standalone Firefly server on this host'
+	@echo '           up   - start a Firefly server on a private network'
 	@echo '           update - copy index.html into running Firefly server (for development)'
 
 down:
@@ -26,6 +29,12 @@ exec:
 
 gen:
 	docker run -d --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${FFWWW}:/local/www ${FFIMG} --help
+
+run:
+	docker run -d --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${FFWWW}:/local/www -v ${IMGS}:/external:ro ${FFIMG}
+
+stop:
+	docker stop ${NAME}
 
 up:
 	docker stack deploy -c docker-compose.yml ${STACK}
