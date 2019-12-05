@@ -121,7 +121,7 @@ To search the JWST catalog in the local VO Server:
  2. Select the `VO Catalog` tab at the top of the catalogs window.
  3. Enter coordinates (no names) for the search, such as `53.16 -27.78`
  4. Select a search radius and units, such as `4 arcseconds`
- 5. Enter the `Cone Search URL` for the local VO Server, which is `http://vos:8080/dals/scs-jcat`
+ 5. Enter the `Cone Search URL` for the local VO Server, which is `http://vos:8080/dals/scs-jaguar`
  6. Click the `Search` button at the bottom of the catalogs window.
  7. The results from the catalog search should open and display next to the previously loaded image.
 
