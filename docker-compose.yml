@@ -18,5 +18,5 @@ services:
 
 networks:
   default:
-    name: loc_net
-    attachable: true
+    external: true
+    name: vos_net
