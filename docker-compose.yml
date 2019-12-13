@@ -2,7 +2,8 @@ version: '3.7'
 
 services:
   firefly:
-    image: ipac/firefly:release-2019.3.2
+    # image: astrolabe/ffal:1H
+    image: ffal:1H
     deploy:
       restart_policy:
         condition: none
@@ -10,7 +11,7 @@ services:
       # - DEBUG=TRUE
       - _JAVA_OPTIONS=-Xms512m -Xmx10240m
     volumes:
-      - ./www:/local/www
+      # - ./www:/local/www
       - ./images:/external:ro
     ports:
       - "8888:8080"
