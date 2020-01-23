@@ -5,7 +5,6 @@ IMG=ffal:1H
 IMGS=${PWD}/images
 JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m'
 NAME=ffal
-NET=vos_net
 PORT=8888
 STACK=loc
 
@@ -37,7 +36,7 @@ gen:
 	docker run -d --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${FFWWW}:/local/www ${FFIMG} --help
 
 run:
-	docker run -d --rm --name ${NAME} --network ${NET} -p${PORT}:8080 -e ${JOPTS} -v ${IMGS}:/external:ro ${IMG}
+	docker run -d --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${IMGS}:/external:ro ${IMG}
 
 stop:
 	docker stop ${NAME}
@@ -47,6 +46,3 @@ up:
 
 update:
 	docker cp ${PWD}/www/index.html ${NAME}:/local/www
-
-%:
-	@:
