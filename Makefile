@@ -1,6 +1,6 @@
 ENVLOC=/etc/trhenv
 FFWWW=${PWD}/www
-FFIMG=ipac/firefly:release-2019.3.2
+FFIMG=ipac/firefly:release-2019.4.0
 IMG=ffal:1H
 IMGS=${PWD}/images
 JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m'

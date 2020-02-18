@@ -1,4 +1,4 @@
-FROM ipac/firefly:release-2019.3.2
+FROM ipac/firefly:release-2019.4.0
 
 USER root
 
