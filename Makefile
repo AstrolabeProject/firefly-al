@@ -11,15 +11,16 @@ STACK=loc
 .PHONY: help docker down exec gen run stop up update
 
 help:
-	@echo 'Make what? help, exec, down, gen, up'
+#	@echo 'Make what? help, docker, down, exec, gen, run, stop, up, update'
+	@echo 'Make what? help, docker, exec, gen, run, stop, update'
 	@echo '  where: help - show this help message'
 	@echo '         docker - build the custom Firefly container image'
-	@echo '         down - stop the Firefly server on the private network'
+#	@echo '         down - stop the Firefly server on the private network'
 	@echo '         exec - exec into the running Firefly server (CLI arg: NAME=containerID)'
 	@echo '         gen  - generate initial UI file stubs into a subdirectory'
 	@echo '         run  - start a standalone Firefly server on this host'
 	@echo '         stop - stop the standalone Firefly server on this host'
-	@echo '         up   - start a Firefly server on a private network'
+#	@echo '         up   - start a Firefly server on a private network'
 	@echo '         update - copy index.html into running Firefly server (for development)'
 
 docker:
