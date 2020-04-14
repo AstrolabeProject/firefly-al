@@ -9,9 +9,8 @@ services:
         condition: none
     environment:
       # - DEBUG=TRUE
-      - _JAVA_OPTIONS=-Xms512m -Xmx10240m
+      - _JAVA_OPTIONS=-Xms512m -Xmx10240m -Djava.security.egd=file:///dev/urandom
     volumes:
-      # - ./www:/local/www
       - ./images:/external:ro
     ports:
       - "8888:8080"
