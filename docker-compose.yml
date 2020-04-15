@@ -14,9 +14,11 @@ services:
       - ./images:/external:ro
     ports:
       - "8888:8080"
+    networks:
+      - vos_net
 
 
 networks:
-  default:
+  vos_net:
     external: true
     name: vos_net
