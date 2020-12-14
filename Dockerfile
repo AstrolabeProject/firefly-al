@@ -8,4 +8,7 @@ USER root
 #     && apt-get clean \
 #     && rm -rf /usr/lib/apt/lists/*
 
+# possible alternative to the specifying this in JAVA_OPTIONS:
+# RUN echo "securerandom.source=file:/dev/urandom" >> /etc/alternatives/jre/lib/security/java.security
+
 COPY www /local/www
