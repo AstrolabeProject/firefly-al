@@ -9,6 +9,6 @@ USER root
 #     && rm -rf /usr/lib/apt/lists/*
 
 # possible alternative to the specifying this in JAVA_OPTIONS:
-# RUN echo "securerandom.source=file:/dev/urandom" >> /etc/alternatives/jre/lib/security/java.security
+RUN echo "securerandom.source=file:/dev/./urandom" >> /usr/local/openjdk-11/lib/security/java.security
 
 COPY www /local/www
