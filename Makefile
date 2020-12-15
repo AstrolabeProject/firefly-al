@@ -7,7 +7,7 @@ JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m -Djava.security.egd=file:///dev/urandom
 NAME=ffal
 NET=vos_net
 PORT=8888
-STACK=vos
+STACK=ff1H
 
 .PHONY: help docker down exec gen run stop up update
 
