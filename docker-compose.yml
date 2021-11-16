@@ -2,8 +2,7 @@ version: '3.7'
 
 services:
   firefly:
-    # image: astrolabe/ffal
-    image: ffal:devel
+    image: astrolabe/ffal
     deploy:
       restart_policy:
         condition: none
