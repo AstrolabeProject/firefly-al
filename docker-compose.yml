@@ -1,11 +1,9 @@
-version: '3.7'
+version: '3.9'
 
 services:
   firefly:
     image: astrolabe/ffal
-    deploy:
-      restart_policy:
-        condition: none
+    restart: "no"
     environment:
       # - DEBUG=TRUE
       - _JAVA_OPTIONS=-Xms512m -Xmx10240m -Djava.security.egd=file:/dev/./urandom
