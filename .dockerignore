@@ -3,6 +3,7 @@ build.gradle
 data
 Dockerfile
 docker-compose.yml
+/EXTRAS
 FF-Integration-notes.md
 gend
 images
