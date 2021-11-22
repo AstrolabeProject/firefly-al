@@ -1,7 +1,7 @@
 ENVLOC=/etc/trhenv
 FFWWW=${PWD}/www
-FFIMG=ipac/firefly:release-2019.4.0
-IMG=ffal:devel
+FFIMG=ipac/firefly:release-2021.3.3
+IMG=astrolabe/ffal
 IMGS=${PWD}/images
 JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m -Djava.security.egd=file:/dev/./urandom'
 NAME=ffal
