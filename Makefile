@@ -1,13 +1,13 @@
 ENVLOC=/etc/trhenv
 FFWWW=${PWD}/www
 FFIMG=ipac/firefly:release-2021.3.3
-IMG=ffal:1H
+IMG=astrolabe/ffal:1H
 IMGS=${PWD}/images
 JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m -Djava.security.egd=file:/dev/./urandom'
 NAME=ffal
 NET=vos_net
 PORT=8888
-STACK=ff1H
+GROUP=ff1H
 
 .PHONY: help docker down exec gen run stop up update
 
@@ -16,20 +16,20 @@ help:
 	@echo 'Make what? help, docker, down, exec, gen, run, runv, stop, up, update'
 	@echo '  where: help - show this help message'
 	@echo '         docker - build the custom Firefly container image'
-	@echo '         down - STOP THE ENTIRE VOS STACK !!'
+	@echo '         down - compose stop a Firefly server'
 	@echo '         exec - exec into the running Firefly server (CLI arg: NAME=containerID)'
 	@echo '         gen  - generate initial UI file stubs into a subdirectory'
 	@echo '         run  - start a standalone Firefly server on this host'
 	@echo '         runv - start a Firefly server on the VOS network'
 	@echo '         stop - stop the standalone Firefly server on this host'
-	@echo '         up   - start a Firefly server on the VOS stack'
+	@echo '         up   - compose start a Firefly server'
 	@echo '         update - copy index.html into running Firefly server (for development)'
 
 docker:
 	docker build -t ${IMG} .
 
 down:
-	docker stack rm ${STACK}
+	docker compose -p ${GROUP} down
 
 exec:
 	docker cp .bash_env ${NAME}:${ENVLOC}
@@ -47,8 +47,11 @@ runv:
 stop:
 	docker stop ${NAME}
 
+up-dev:
+	docker compose -p ${GROUP} up
+
 up:
-	docker stack deploy -c docker-compose.yml ${STACK}
+	docker compose -p ${GROUP} up --detach
 
 update:
 	docker cp ${PWD}/www/index.html ${NAME}:/local/www
