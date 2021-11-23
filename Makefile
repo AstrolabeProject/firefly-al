@@ -6,7 +6,7 @@ IMGS=${PWD}/images
 JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m -Djava.security.egd=file:/dev/./urandom'
 NAME=ffal
 PORT=8888
-STACK=loc
+GROUP=local
 
 .PHONY: help docker down exec gen run stop up update
 
@@ -27,7 +27,7 @@ docker:
 	docker build -t ${IMG} .
 
 down:
-	docker stack rm ${STACK}
+	docker compose -p ${GROUP} down
 
 exec:
 	docker cp .bash_env ${NAME}:${ENVLOC}
@@ -42,8 +42,11 @@ run:
 stop:
 	docker stop ${NAME}
 
+up-dev:
+	docker compose -p ${GROUP} up
+
 up:
-	docker stack deploy -c docker-compose.yml ${STACK}
+	docker compose -p ${GROUP} up --detach
 
 update:
 	docker cp ${PWD}/www/index.html ${NAME}:/local/www
