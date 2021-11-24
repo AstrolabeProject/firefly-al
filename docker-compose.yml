@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   firefly:
-    image: astrolabe/ffal
+    image: astrolabe/ffal:local
     restart: "no"
     environment:
       # - DEBUG=TRUE
