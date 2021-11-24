@@ -10,27 +10,37 @@
     <title>IRSA Viewer</title>
 
     <script>
+        var pOpts = window.firefly && window.firefly.options || {};
         window.firefly = {
             app: {
                 template: 'FireflyViewer',          // set to app mode, instead of api.
                 menu: [
                     {label:'Images', action:'ImageSelectDropDownCmd'},
-                    {label:'Catalogs', action:'IrsaCatalogDropDown'},
                     {label:'Charts', action:'ChartSelectDropDownCmd'},
                     {label:'Upload', action: 'FileUploadDropDownCmd'},
                     {label:'Workspace', action: 'WorkspaceDropDownCmd'},
+                    {label:'TAP & IRSA Searches', action: 'MultiTableSearchCmd'},
                     {label:'Test Searches', action:'TestSearches'},
-                    {label:'TAP Searches', action: 'TAPSearch'},
+                    // {label:'TAP Searches', action: 'TAPSearch'},
                     {label:'Example Js Dialog', action:'exampleDialog', type:'COMMAND'},
                 ],
             },
-            options : {
+            options : Object.assign(pOpts, {
+                multiTableSearchCmdOptions: [
+                    {id: 'tap', title: 'TAP Searches'},
+                    {id: 'irsacat', title: 'IRSA Catalogs'},
+                    {id: 'vocat'},
+                    {id: 'nedcat'}
+                ],
+                targetPanelExampleRow1: [`'m82'`, `'ngc 12'`, `'12.22 34.222`, `'46.222-0.222 gal'`],
+                targetPanelExampleRow2: [`'19h22m22s 11d22m22s equ j2000'`],
                 MenuItemKeys: {maskOverlay:true},
                 catalogSpacialOp: 'polygonWhenPlotExist',
                 workspace : {showOptions: true},
                 imageMasterSourcesOrder: ['WISE', '2MASS', 'Spitzer'],
                 // wcsMatchType: 'Standard',  // 'Standard', 'Target', 'Pixel', 'PixelCenter'
-                wcsMatchType: false,  // 'Standard', 'Target', 'Pixel', 'PixelCenter'
+                wcsMatchType: true,  // 'Standard', 'Target', 'Pixel', 'PixelCenter'
+                imageScrollsToActiveTableOnLoadOrSelect: true,
                 imageScrollsToHighlightedTableRow: false, // boolean value
                        // a way to add more image sources into UI list, backend must still know how to search it
                 imageMasterAdditionalSources:  getMoreImagePanelDataTest(),
@@ -44,6 +54,52 @@
                     defHipsSources: {source: 'irsa', label: 'IRSA Featured'},
                     mergedListPriority: 'Irsa'
                 },
+                image : {
+                    defaultColorTable : 5
+                },
+                tapObsCore: {
+                    filterDefinitions: [
+                        {
+                            name: 'LSSTCam',
+                            options: [
+                                {label: 'u', value : '367', title: '367nm central value'},
+                                {label: 'g', value : '483', title: '483nm central value'},
+                                {label: 'r', value : '622', title: '622nm central value'},
+                                {label: 'i', value : '755', title: '755nm central value'},
+                                {label: 'z', value : '869', title: '869nm central value'},
+                                {label: 'y', value : '971', title: '971nm central value'},
+                            ],
+                        },
+                        {
+                            name: 'WISE',
+                            options: [
+                                {label: 'W1', value : '3353', title:'3.353 micron central value'},
+                                {label: 'W2', value : '4603', title:'4.603 micron central value'},
+                                {label: 'W3', value : '11561', title:'11.561 micron central value'},
+                                {label: 'W4', value : '22088', title:'22.088 micron central value'},
+                            ]
+                        },
+                    ],
+                    obsCoreCalibrationLevel: {
+                        tooltip: 'Calibration ',
+                        helptext: '1 is raw data; 2 is PVIs; 3 selects difference images and coadds',
+                        level: {
+                            1: {title: 'For Rubin: Raw Data'},
+                            2: {title: 'For Rubin: PVIs'},
+                            3: {title: 'For Rubin: Difference Images and Coadds'},
+                        },
+                    },
+                    obsCoreInstrumentName: {
+                        tooltip: 'LSSTCam, LSSTComCam',
+                        placeholder: 'e.g. LSSTCam',
+                    },
+                    obsCoreSubType: {
+                        tooltip: 'Butler Dataset Type (raw, calexp, etc..)',
+                        placeholder: 'e.g. calexp',
+                        helptext: 'Butler Repo Dataset type',
+                    },
+                    debug: true,
+                },
                 coverage : { // example of using DSS and wise combination for coverage (not that anyone would want to combination)
                     hipsSourceURL : 'http://alasky.u-strasbg.fr/DSS/DSSColor', // url
                     imageSourceParams: {
@@ -52,10 +108,17 @@
                         SurveyKeyBand: '4'
                     }
                 }
-            }
+            })
         };
 
         function getMoreImagePanelDataTest() {
+            // available URL mappings-
+            //        ra, dec - for position J2000
+            //        galLon, galLat - for position Galactic
+            //        size, sizeDeg, sizeArcMin, sizeArcSec   - if user leaves cutout size blank then blank will be substituted
+            //        sizeOrMax, sizeDegOrMax, sizeArcMinOrMax, sizeArcSecOrMax, - if user leaves cutout size blank then maxRangeDeg will be used to determine max
+            //        sizeOrZero, sizeDegOrZero, sizeArcMinOrZero, sizeArcSecOrZero - if user leaves cutout size blank then 0 will be substituted
+
             return [
                 {
                     acronym: "test Dss search using URLS",
@@ -66,8 +129,8 @@
                     minRangeDeg: "0.016",
                     missionId: "test-extension",
                     plotRequestParams: {
-                        // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
-                        URL: 'http://archive.stsci.edu:80/cgi-bin/dss_search?r=${ra}&d=${dec}e=J2000&h=${sizeArcMin}&w=${sizeArcMin}&f=FITS&v=poss2ukstu_red&s=ON&c=gz',
+                        // available mappings- ra,dec,galLon, galLat, size, sizeDeg, sizeArcMin, sizeArcSec
+                        URL: 'http://archive.stsci.edu:80/cgi-bin/dss_search?r=${ra}&d=${dec}&e=J2000&h=${sizeArcMinOrZero}&w=${sizeArcMinOrZero}&f=FITS&v=poss2ukstu_red&s=ON&c=gz',
                         title: "Test DSS red",
                         type: "URL",
                     },
@@ -91,8 +154,8 @@
                     minRangeDeg: "0.016",
                     missionId: "test-extension",
                     plotRequestParams: {
-                        // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
-                        URL: 'http://archive.stsci.edu:80/cgi-bin/dss_search?r=${ra}&d=${dec}e=J2000&h=${sizeArcMin}&w=${sizeArcMin}&f=FITS&v=poss2ukstu_ir&s=ON&c=gz',
+                        // available mappings- set description above
+                        URL: 'http://archive.stsci.edu:80/cgi-bin/dss_search?r=${ra}&d=${dec}&e=J2000&h=${sizeArcMin}&w=${sizeArcMin}&f=FITS&v=poss2ukstu_ir&s=ON&c=gz',
                         title: "Test DSS IR",
                         type: "URL",
                     },
@@ -115,7 +178,7 @@
                     minRangeDeg: "0.016",
                     missionId: "test-extension",
                     tableRequestParams: {
-                        // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
+                        // available mappings- set description above
                         URL: 'https://irsa.ipac.caltech.edu/cgi-bin/Gator/nph-query?outfmt=1&catalog=allwise_p3as_psd&objstr=${ra}d+${dec}d+eq+j2000&spatial=Cone&radius=${sizeArcSec}&onlist=1'
                     },
                     project: "test extension tables",
@@ -137,7 +200,7 @@
                     minRangeDeg: "0.016",
                     missionId: "test-extension",
                     tableRequestParams: {
-                        // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
+                        // available mappings- set description above
                         URL: 'http://web.ipac.caltech.edu/staff/roby/demo/test-table4.tbl',
                         datasource: 'FITS'
                     },
@@ -160,7 +223,7 @@
                     minRangeDeg: "0.016",
                     missionId: "test-extension",
                     tableRequestParams: {
-                        // available mappings- ra,dec,size, sizeDeg, sizeArcMin, sizeArcSec
+                        // available mappings- set description above
                         URL:'https://vao.stsci.edu/CAOMTAP/TapService.aspx/sync?request=doQuery&QUERY=SELECT%20*%20FROM%20ivoa.obscore%20WHERE%20CONTAINS(POINT(\'ICRS\',%20s_ra,s_dec),CIRCLE(\'ICRS\',%20${ra},${dec},${sizeDeg}))=1&LANG=ADQL&MAXREC=50000',
                     },
                     project: "test extension tables",
