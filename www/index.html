@@ -13,21 +13,23 @@
         var pOpts = window.firefly && window.firefly.options || {};
         window.firefly = {
             app: {
-                template: 'FireflyViewer'     // set to app mode, instead of api.
+                template: 'FireflyViewer',
+                menu: [
+                    {label:'AL2-Images', action:'ImageSelectDropDownSlateCmd'},
+                    {label:'AL2-TAP/Table Searches', action: 'MultiTableSearchCmd'},
+                    {label:'AL2-Charts', action:'ChartSelectDropDownCmd'},
+                    {label:'AL2-Upload', action: 'FileUploadDropDownCmd'},
+                    {label:'AL2-JWST', action: 'FileUploadDropDownCmd'},
+                    <!-- {label:'AL-JWST', action: 'JWSTPanelCmd'}, -->
+                ],
+                showBgMonitor: false
             },
             options : Object.assign(pOpts, {
-                hips: {
-                    readoutShowsPixel: true
-                },
-                coverage: { // example of using DSS and wise combination for coverage (not that anyone would want to combination)
-                    hipsSourceURL: 'http://alasky.u-strasbg.fr/DSS/DSSColor', // url
-                    imageSourceParams: {
-                        Service: 'WISE',
-                        Title: "WISE Atlas W1",
-                        SurveyKey: '3a',
-                        SurveyKeyBand: '1'
-                    }
-                }
+                MenuItemKeys: {maskOverlay:true},
+                catalogSpacialOp: 'polygonWhenPlotExist',
+                disableDefaultDropDown: true,
+                charts: {defaultDeletable: true},
+                readoutDefaultPref: {imageMouseReadout2:'zeroIP'}
             })
         };
     </script>
