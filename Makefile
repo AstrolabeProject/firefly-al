@@ -1,11 +1,13 @@
+ARGS=
 ENVLOC=/etc/trhenv
 FFWWW=${PWD}/www
-FFIMG=ipac/firefly:release-2021.3.3
+FFIMG=ipac/firefly:release-2021.4.0
 IMG=astrolabe/ffal:local
 IMGS=${PWD}/images
 JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m -Djava.security.egd=file:/dev/./urandom'
 NAME=fflocal
 PORT=8888
+SHELL=/bin/bash
 GROUP=local
 
 .PHONY: help docker down exec gen run stop up update
@@ -22,6 +24,10 @@ help:
 	@echo '         up-dev - compose start a Firefly server (console logging)'
 	@echo '         up     - compose start a Firefly server (background logging)'
 	@echo '         update - copy index.html into running Firefly server (for development)'
+
+bash:
+	docker run -it --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${IMGS}:/external:ro --entrypoint ${SHELL} ${IMG} ${ARGS}
+
 
 docker:
 	docker build -t ${IMG} .
