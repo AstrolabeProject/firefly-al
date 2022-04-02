@@ -1,11 +1,12 @@
 ARGS=
 ENVLOC=/etc/trhenv
 FFWWW=${PWD}/www
-FFIMG=ipac/firefly:release-2021.4.0
+FFIMG=ipac/firefly:2022.1
 IMG=astrolabe/ffal:local
-IMGS=${PWD}/images
+LOCDATA=${PWD}/local-data
 JOPTS='_JAVA_OPTIONS=-Xms512m -Xmx10240m -Djava.security.egd=file:/dev/./urandom'
-NAME=fflocal
+NAME=ffalws
+MEM=16g
 PORT=8888
 SHELL=/bin/bash
 GROUP=local
@@ -26,7 +27,7 @@ help:
 	@echo '         update - copy index.html into running Firefly server (for development)'
 
 bash:
-	docker run -it --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${IMGS}:/external:ro --entrypoint ${SHELL} ${IMG} ${ARGS}
+	docker run -it --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${LOCDATA}:/external:ro --entrypoint ${SHELL} ${IMG} ${ARGS}
 
 
 docker:
@@ -43,7 +44,7 @@ gen:
 	docker run -d --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${FFWWW}:/local/www ${FFIMG} --help
 
 run:
-	docker run -d --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -v ${IMGS}:/external:ro ${IMG}
+	docker run -d --rm --name ${NAME} -p${PORT}:8080 -e ${JOPTS} -m ${MEM} -v ${LOCDATA}:/external:ro ${IMG}
 
 stop:
 	docker stop ${NAME}

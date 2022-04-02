@@ -1,6 +1,6 @@
-FROM ipac/firefly:release-2021.4.0
+FROM ipac/firefly:2022.1
 
-USER root
+# USER root
 
 ## Install the icommands, curl, and wget
 # RUN apt-get update \
@@ -9,6 +9,6 @@ USER root
 #     && rm -rf /usr/lib/apt/lists/*
 
 # possible alternative to the specifying this in JAVA_OPTIONS:
-RUN echo "securerandom.source=file:/dev/./urandom" >> /usr/local/openjdk-11/lib/security/java.security
+# RUN echo "securerandom.source=file:/dev/./urandom" >> /usr/local/openjdk-17/lib/security/java.security
 
 COPY www /local/www
