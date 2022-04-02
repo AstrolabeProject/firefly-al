@@ -6,6 +6,7 @@ docker-compose.yml
 /EXTRAS
 FF-Integration-notes.md
 gend
+local-data
 images
 Makefile
 out

@@ -9,4 +9,5 @@
 /dist/
 /EXTRAS
 images
+local-data/*
 out
